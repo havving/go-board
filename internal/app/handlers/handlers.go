@@ -7,10 +7,6 @@ import (
 
 type APIHandlerBlock struct{}
 
-func SendError(ctx echo.Context, code int, errs ...error) error {
-	return SendError(ctx, code, errs...)
-}
-
 // OpenBoardListHandler GET /api/board
 func (h *APIHandlerBlock) OpenBoardListHandler(ctx echo.Context) error {
 	return board.SelectBoardList(ctx)

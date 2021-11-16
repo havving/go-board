@@ -2,7 +2,7 @@ openapi: 3.0.3
 
 info:
   title: Board
-  description: Todo Board
+  description: Board
   version: 1.0.0
 
 servers:
@@ -10,54 +10,60 @@ servers:
     description: Local Develpoment
 
 paths:
-  /api/todos:
+  /api/board:
     get:
-      summary: List all todos
-      operationId: getTodos
+      summary: List all Board
+      operationId: getBoard
       tags:
-        - todos
+        - board
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Todo"
+                $ref: "#/components/schemas/Board"
         default:
           description: FAIL
 
+  /api/board/write:
     post:
-      summary: Add todo
-      operationId: postTodo
+      summary: Write Board
+      operationId: postBoard
       tags:
-        - todos
+        - board
       requestBody:
-        description: Add todo
+        description: Write Board
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Todo"
+              type: object
+              properties:
+                title:
+                  type: string
+                contents:
+                  type: string
       responses:
         '201':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Todo"
+                $ref: "#/components/schemas/Board"
         '400':
           description: FAIL
 
-  /api/todos/{id}:
-    delete:
-      summary: Delete todo
-      operationId: removeTodo
+  /api/board/{boardIdx}:
+    get:
+      summary: List Board
+      operationId: getOneBoard
       tags:
-        - todos
+        - board
       parameters:
-        - name: id
+        - name: boardIdx
           in: path
           required: true
-          description: Todo id
+          description: Board id
           schema:
             type: integer
       responses:
@@ -66,47 +72,87 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Todo"
-        '404':
+                $ref: "#/components/schemas/Board"
+        default:
           description: FAIL
 
     put:
-      summary: Update todo
-      operationId: updateTodo
+      summary: Update Board
+      operationId: updateBoard
       tags:
-        - todos
+        - board
       parameters:
-        - name: id
+        - name: boardIdx
           in: path
           required: true
-          description: Todo id
+          description: Board id
           schema:
             type: integer
       requestBody:
-        description: Update todo
+        description: Update Board
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/Todo"
+              type: object
+              properties:
+                title:
+                  type: string
+                contents:
+                  type: string
+                boardIdx:
+                  type: integer
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Todo"
+                $ref: "#/components/schemas/Board"
         '400':
+          description: FAIL
+
+    delete:
+      summary: Delete Board
+      operationId: removeBoard
+      tags:
+        - board
+      parameters:
+        - name: boardIdx
+          in: path
+          required: true
+          description: Board id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Board"
+        '404':
           description: FAIL
 
 components:
   schemas:
-    Todo:
+    Board:
       type: object
       properties:
-        id:
+        board_idx:
           type: integer
           format: int64
-        name:
+        title:
           type: string
-        completed:
-          type: boolean
+        contents:
+          type: string
+        hit_cnt:
+          type: integer
+          format: int64
+        creator_id:
+          type: string
+        created_datetime:
+          type: string
+        updater_id:
+          type: string
+        updated_datetime:
+          type: string

@@ -12,9 +12,13 @@ type BoardBlock struct {
 	Contents        string `db:"contents" json:"contents"`
 	HitCnt          int    `db:"hit_cnt" json:"hit_cnt"`
 	CreatorId       string `db:"creator_id" json:"creator_id"`
-	CreatedDateTime string `db:"created_datetime" json:"created_date_time"`
+	CreatedDateTime string `db:"created_datetime" json:"created_datetime"`
 	UpdaterId       string `db:"updater_id" json:"updater_id"`
-	UpdatedDateTime string `db:"updated_datetime" json:"updated_date_time"`
+	UpdatedDateTime string `db:"updated_datetime" json:"updated_datetime"`
+}
+
+type Success struct {
+	Success bool `json:"success"`
 }
 
 var SQL *database.SQL
