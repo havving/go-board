@@ -17,12 +17,11 @@ func Start() {
 
 	middleware.Register(e) // 미들웨어 설정
 	router.Register(e)     // 라우터 설정
-	models.Setup()     // 데이터베이스 설정
+	models.Setup()         // 데이터베이스 설정
 
 	// start server
 	err := e.Start(":3000")
 	if err != nil {
 		panic(err)
 	}
-
 }
